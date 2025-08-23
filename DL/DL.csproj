@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,12 +53,73 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abarrotes.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Abarrotes.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Abarrotes.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Abarrotes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Abarrotes.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="DetallesVentas.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventarioGeneral_Result.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Productos.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sucursales.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Abarrotes.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Abarrotes.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Abarrotes.edmx.diagram">
+      <DependentUpon>Abarrotes.edmx</DependentUpon>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Abarrotes.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Abarrotes.edmx</DependentUpon>
+      <LastGenOutput>Abarrotes.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Abarrotes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Abarrotes.edmx</DependentUpon>
+      <LastGenOutput>Abarrotes.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

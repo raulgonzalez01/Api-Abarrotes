@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ML
+namespace CQRS.Queries
 {
-    public class Class4
+    public class InventarioQuerie
     {
     }
 }
