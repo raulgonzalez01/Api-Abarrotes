@@ -52,7 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Commands\AgregarProducto.cs" />
+    <Compile Include="Commands\ActualizarProducto.cs" />
+    <Compile Include="Commands\DetalleVenta.cs" />
+    <Compile Include="Commands\EliminarProducto.cs" />
     <Compile Include="Commands\RegistrarCompra.cs" />
+    <Compile Include="Commands\RegistrarVenta.cs" />
+    <Compile Include="Handlers\ActualizarProducto.cs" />
+    <Compile Include="Handlers\AgregarProducto.cs" />
+    <Compile Include="Handlers\HistorialVentas.cs" />
+    <Compile Include="Handlers\EliminarProducto.cs" />
+    <Compile Include="Handlers\GetAllProducto.cs" />
     <Compile Include="Handlers\RegistrarAsignacion.cs" />
     <Compile Include="Handlers\InventarioHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -69,7 +69,19 @@
       <DependentUpon>Abarrotes.edmx</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Compras.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultarHistorialVentas_Result.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
     <Compile Include="DetallesVentas.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAllProductos_Result.cs">
+      <DependentUpon>Abarrotes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetById_Result.cs">
       <DependentUpon>Abarrotes.tt</DependentUpon>
     </Compile>
     <Compile Include="Inventario.cs">

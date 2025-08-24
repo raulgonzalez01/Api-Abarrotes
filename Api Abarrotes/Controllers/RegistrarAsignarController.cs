@@ -18,10 +18,25 @@ namespace Api_Abarrotes.Controllers
             ML.Result result = await CQRS.Handlers.RegistrarAsignacion.Handle(command);
 
             if (result.Correct)
-                return Ok("Compra registrada y producto asignado correctamente.");
+                return Ok("Compra registrada y producto asignado correctamente");
             else
                 return BadRequest(result.ErrorMessage);
         }
+
+
+
+        [HttpPost]
+        [Route("api/Venta/Registrar")]
+        public async Task<IHttpActionResult> Registrar([FromBody] CQRS.Commands.RegistrarVenta command)
+        {
+            ML.Result result = await CQRS.Handlers.RegistrarAsignacion.RegistrarVenta(command);
+
+            if (result.Correct)
+                return Ok("Venta registrada correctamente");
+            else
+                return BadRequest(result.ErrorMessage);
+        }
+
 
 
     }

@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7cb992b818c742f48b387c08e107a8d4" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="RetoTiendaModel.DetallesVentas" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="RetoTiendaModel.DetallesVentas" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RetoTiendaModel.Inventario" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RetoTiendaModel.Productos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RetoTiendaModel.Roles" Width="1.5" PointX="3.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="RetoTiendaModel.Sucursales" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RetoTiendaModel.Usuarios" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="RetoTiendaModel.Ventas" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RetoTiendaModel.Ventas" Width="1.5" PointX="3.25" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="RetoTiendaModel.FK__DetallesV__IdPro__4CA06362" ManuallyRouted="false" />
         <AssociationConnector Association="RetoTiendaModel.FK__DetallesV__IdVen__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="RetoTiendaModel.FK__Inventari__IdPro__440B1D61" ManuallyRouted="false" />
@@ -19,6 +19,10 @@
         <AssociationConnector Association="RetoTiendaModel.FK__Usuarios__IdRol__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="RetoTiendaModel.FK__Usuarios__IdSucu__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="RetoTiendaModel.FK__Ventas__IdSucurs__47DBAE45" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RetoTiendaModel.Compras" Width="1.5" PointX="8.25" PointY="2.75" />
+        <AssociationConnector Association="RetoTiendaModel.FK__Compras__IdProdu__5441852A" />
+        <AssociationConnector Association="RetoTiendaModel.FK__Compras__IdSucur__5535A963" />
+        <AssociationConnector Association="RetoTiendaModel.FK__Compras__IdUsuar__5629CD9C" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

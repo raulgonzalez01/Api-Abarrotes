@@ -34,6 +34,7 @@ namespace DL
         public virtual DbSet<Sucursales> Sucursales { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Ventas> Ventas { get; set; }
+        public virtual DbSet<Compras> Compras { get; set; }
     
         public virtual ObjectResult<InventarioGeneral_Result> InventarioGeneral()
         {
@@ -59,6 +60,89 @@ namespace DL
                 new ObjectParameter("Cantidad", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarCompraAsignacion", idUsuarioParameter, idProductoParameter, idSucursalParameter, cantidadParameter);
+        }
+    
+        public virtual ObjectResult<GetAllProductos_Result> GetAllProductos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllProductos_Result>("GetAllProductos");
+        }
+    
+        public virtual int AgregarProducto(string codigoBarras, string nombre, string descripcion, Nullable<decimal> precio)
+        {
+            var codigoBarrasParameter = codigoBarras != null ?
+                new ObjectParameter("CodigoBarras", codigoBarras) :
+                new ObjectParameter("CodigoBarras", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("Precio", precio) :
+                new ObjectParameter("Precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AgregarProducto", codigoBarrasParameter, nombreParameter, descripcionParameter, precioParameter);
+        }
+    
+        public virtual ObjectResult<GetById_Result> GetById(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetById_Result>("GetById", idUsuarioParameter);
+        }
+    
+        public virtual int EliminarProducto(Nullable<int> idProducto)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarProducto", idProductoParameter);
+        }
+    
+        public virtual int ActualizarProductos(Nullable<int> idProducto, string codigoBarras, string nombre, string descripcion, Nullable<decimal> precio)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            var codigoBarrasParameter = codigoBarras != null ?
+                new ObjectParameter("CodigoBarras", codigoBarras) :
+                new ObjectParameter("CodigoBarras", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("Precio", precio) :
+                new ObjectParameter("Precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarProductos", idProductoParameter, codigoBarrasParameter, nombreParameter, descripcionParameter, precioParameter);
+        }
+    
+        public virtual ObjectResult<ConsultarHistorialVentas_Result> ConsultarHistorialVentas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarHistorialVentas_Result>("ConsultarHistorialVentas");
+        }
+    
+        public virtual int RegistrarVenta(Nullable<int> idSucursal)
+        {
+            var idSucursalParameter = idSucursal.HasValue ?
+                new ObjectParameter("IdSucursal", idSucursal) :
+                new ObjectParameter("IdSucursal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarVenta", idSucursalParameter);
         }
     }
 }

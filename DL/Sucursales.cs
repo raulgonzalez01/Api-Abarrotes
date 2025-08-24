@@ -20,6 +20,7 @@ namespace DL
             this.Inventario = new HashSet<Inventario>();
             this.Usuarios = new HashSet<Usuarios>();
             this.Ventas = new HashSet<Ventas>();
+            this.Compras = new HashSet<Compras>();
         }
     
         public int IdSucursal { get; set; }
@@ -32,5 +33,7 @@ namespace DL
         public virtual ICollection<Usuarios> Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ventas> Ventas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Compras> Compras { get; set; }
     }
 }

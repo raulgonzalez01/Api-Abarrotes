@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RetoTiendaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Compras">
+          <Key>
+            <PropertyRef Name="IdCompra" />
+          </Key>
+          <Property Name="IdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="IdSucursal" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DetallesVentas">
           <Key>
             <PropertyRef Name="IdDetalle" />
@@ -69,6 +80,42 @@
           <Property Name="Fecha" Type="datetime" />
           <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
+        <Association Name="FK__Compras__IdProdu__5441852A">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+          <End Role="Compras" Type="Self.Compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Compras">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compras__IdSucur__5535A963">
+          <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
+          <End Role="Compras" Type="Self.Compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="IdSucursal" />
+            </Principal>
+            <Dependent Role="Compras">
+              <PropertyRef Name="IdSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compras__IdUsuar__5629CD9C">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Compras" Type="Self.Compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Compras">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__DetallesV__IdPro__4CA06362">
           <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
           <End Role="DetallesVentas" Type="Self.DetallesVentas" Multiplicity="*" />
@@ -153,6 +200,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ActualizarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="CodigoBarras" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="AgregarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CodigoBarras" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="ConsultarHistorialVentas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="EliminarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="InventarioGeneral" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="RegistrarCompraAsignacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
@@ -160,7 +228,11 @@
           <Parameter Name="IdSucursal" Type="int" Mode="In" />
           <Parameter Name="Cantidad" Type="int" Mode="In" />
         </Function>
+        <Function Name="RegistrarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSucursal" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="RetoTiendaModelStoreContainer">
+          <EntitySet Name="Compras" EntityType="Self.Compras" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetallesVentas" EntityType="Self.DetallesVentas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
@@ -168,6 +240,18 @@
           <EntitySet Name="Sucursales" EntityType="Self.Sucursales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Compras__IdProdu__5441852A" Association="Self.FK__Compras__IdProdu__5441852A">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Compras" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compras__IdSucur__5535A963" Association="Self.FK__Compras__IdSucur__5535A963">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="Compras" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compras__IdUsuar__5629CD9C" Association="Self.FK__Compras__IdUsuar__5629CD9C">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Compras" EntitySet="Compras" />
+          </AssociationSet>
           <AssociationSet Name="FK__DetallesV__IdPro__4CA06362" Association="Self.FK__DetallesV__IdPro__4CA06362">
             <End Role="Productos" EntitySet="Productos" />
             <End Role="DetallesVentas" EntitySet="DetallesVentas" />
@@ -235,6 +319,7 @@
           <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="DetallesVentas" Relationship="Self.FK__DetallesV__IdPro__4CA06362" FromRole="Productos" ToRole="DetallesVentas" />
           <NavigationProperty Name="Inventario" Relationship="Self.FK__Inventari__IdPro__440B1D61" FromRole="Productos" ToRole="Inventario" />
+          <NavigationProperty Name="Compras" Relationship="RetoTiendaModel.FK__Compras__IdProdu__5441852A" FromRole="Productos" ToRole="Compras" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -254,6 +339,7 @@
           <NavigationProperty Name="Inventario" Relationship="Self.FK__Inventari__IdSuc__44FF419A" FromRole="Sucursales" ToRole="Inventario" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuarios__IdSucu__403A8C7D" FromRole="Sucursales" ToRole="Usuarios" />
           <NavigationProperty Name="Ventas" Relationship="Self.FK__Ventas__IdSucurs__47DBAE45" FromRole="Sucursales" ToRole="Ventas" />
+          <NavigationProperty Name="Compras" Relationship="RetoTiendaModel.FK__Compras__IdSucur__5535A963" FromRole="Sucursales" ToRole="Compras" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -267,6 +353,7 @@
           <Property Name="IdRol" Type="Int32" />
           <NavigationProperty Name="Roles" Relationship="Self.FK__Usuarios__IdRol__412EB0B6" FromRole="Usuarios" ToRole="Roles" />
           <NavigationProperty Name="Sucursales" Relationship="Self.FK__Usuarios__IdSucu__403A8C7D" FromRole="Usuarios" ToRole="Sucursales" />
+          <NavigationProperty Name="Compras" Relationship="RetoTiendaModel.FK__Compras__IdUsuar__5629CD9C" FromRole="Usuarios" ToRole="Compras" />
         </EntityType>
         <EntityType Name="Ventas">
           <Key>
@@ -406,6 +493,43 @@
             <Parameter Name="IdSucursal" Mode="In" Type="Int32" />
             <Parameter Name="Cantidad" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetAllProductos" ReturnType="Collection(RetoTiendaModel.GetAllProductos_Result)" />
+          <EntitySet Name="Compras" EntityType="RetoTiendaModel.Compras" />
+          <AssociationSet Name="FK__Compras__IdProdu__5441852A" Association="RetoTiendaModel.FK__Compras__IdProdu__5441852A">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Compras" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compras__IdSucur__5535A963" Association="RetoTiendaModel.FK__Compras__IdSucur__5535A963">
+            <End Role="Sucursales" EntitySet="Sucursales" />
+            <End Role="Compras" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compras__IdUsuar__5629CD9C" Association="RetoTiendaModel.FK__Compras__IdUsuar__5629CD9C">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Compras" EntitySet="Compras" />
+          </AssociationSet>
+          <FunctionImport Name="AgregarProducto">
+            <Parameter Name="CodigoBarras" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="GetById" ReturnType="Collection(RetoTiendaModel.GetById_Result)">
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EliminarProducto">
+          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ActualizarProductos">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="CodigoBarras" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarHistorialVentas" ReturnType="Collection(RetoTiendaModel.ConsultarHistorialVentas_Result)" />
+          <FunctionImport Name="RegistrarVenta">
+            <Parameter Name="IdSucursal" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="InventarioGeneral_Result">
           <Property Type="Int32" Name="IdProducto" Nullable="false" />
@@ -417,6 +541,78 @@
           <Property Type="String" Name="NombreSucursal" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Direccion" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="Stock" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllProductos_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="CodigoBarras" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="10" Scale="2" />
+        </ComplexType>
+        <EntityType Name="Compras">
+          <Key>
+            <PropertyRef Name="IdCompra" />
+          </Key>
+          <Property Name="IdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="IdSucursal" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="RetoTiendaModel.FK__Compras__IdProdu__5441852A" FromRole="Compras" ToRole="Productos" />
+          <NavigationProperty Name="Sucursales" Relationship="RetoTiendaModel.FK__Compras__IdSucur__5535A963" FromRole="Compras" ToRole="Sucursales" />
+          <NavigationProperty Name="Usuarios" Relationship="RetoTiendaModel.FK__Compras__IdUsuar__5629CD9C" FromRole="Compras" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK__Compras__IdProdu__5441852A">
+          <End Type="RetoTiendaModel.Productos" Role="Productos" Multiplicity="1" />
+          <End Type="RetoTiendaModel.Compras" Role="Compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="Compras">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compras__IdSucur__5535A963">
+          <End Type="RetoTiendaModel.Sucursales" Role="Sucursales" Multiplicity="1" />
+          <End Type="RetoTiendaModel.Compras" Role="Compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursales">
+              <PropertyRef Name="IdSucursal" />
+            </Principal>
+            <Dependent Role="Compras">
+              <PropertyRef Name="IdSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compras__IdUsuar__5629CD9C">
+          <End Type="RetoTiendaModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="RetoTiendaModel.Compras" Role="Compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Compras">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UsuarioLogin" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contraseña" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="IdSucursal" Nullable="true" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ConsultarHistorialVentas_Result">
+          <Property Type="Int32" Name="IdVenta" Nullable="false" />
+          <Property Type="String" Name="NombreSucursal" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaYHora" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="Decimal" Name="Subtotal" Nullable="true" Precision="21" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -511,6 +707,56 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarCompraAsignacion" FunctionName="RetoTiendaModel.Store.RegistrarCompraAsignacion" />
+          <FunctionImportMapping FunctionImportName="GetAllProductos" FunctionName="RetoTiendaModel.Store.GetAllProductos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RetoTiendaModel.GetAllProductos_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="CodigoBarras" ColumnName="CodigoBarras" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Compras">
+            <EntityTypeMapping TypeName="RetoTiendaModel.Compras">
+              <MappingFragment StoreEntitySet="Compras">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdCompra" ColumnName="IdCompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AgregarProducto" FunctionName="RetoTiendaModel.Store.AgregarProducto" />
+          <FunctionImportMapping FunctionImportName="GetById" FunctionName="RetoTiendaModel.Store.GetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RetoTiendaModel.GetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="UsuarioLogin" ColumnName="UsuarioLogin" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EliminarProducto" FunctionName="RetoTiendaModel.Store.EliminarProducto" />
+          <FunctionImportMapping FunctionImportName="ActualizarProductos" FunctionName="RetoTiendaModel.Store.ActualizarProductos" />
+          <FunctionImportMapping FunctionImportName="ConsultarHistorialVentas" FunctionName="RetoTiendaModel.Store.ConsultarHistorialVentas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RetoTiendaModel.ConsultarHistorialVentas_Result">
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="NombreSucursal" ColumnName="NombreSucursal" />
+                <ScalarProperty Name="FechaYHora" ColumnName="FechaYHora" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RegistrarVenta" FunctionName="RetoTiendaModel.Store.RegistrarVenta" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

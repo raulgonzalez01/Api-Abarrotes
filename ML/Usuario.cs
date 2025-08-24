@@ -18,7 +18,7 @@ namespace ML
         public int IdSucursal { get; set; }
         public int IdRol {  get; set; }
 
-
+        public ML.Rol Rol { get; set; }
 
         public List<object> Usuarios { get; set; }
     }

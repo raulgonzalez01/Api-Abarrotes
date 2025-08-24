@@ -4,24 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ML
+namespace CQRS.Commands
 {
-    public class Producto
+    public class AgregarProducto
     {
-        public int IdProducto { get; set; } 
-
         public string CodigoBarras { get; set; }
-
         public string Nombre { get; set; }
-
         public string Descripcion { get; set; }
-
         public decimal Precio { get; set; }
 
-
-        //public List<object> Productos { get; set; }
-
-        public int IdUsuario { get; set; }
 
     }
 }

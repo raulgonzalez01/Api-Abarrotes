@@ -27,7 +27,17 @@ namespace Api_Abarrotes.Controllers
         }
 
 
+        [HttpGet]
+        [Route("api/Inventario/PorSucursal")]
+        public async Task<IHttpActionResult> GetBySucursal(int idSucursal)
+        {
+            var result = await CQRS.Handlers.InventarioHandlers.GetInventarioPorSucursal(idSucursal);
 
+            if (result.Correct)
+                return Ok(result.Objects);
+            else
+                return BadRequest(result.ErrorMessage);
+        }
 
     }
 }

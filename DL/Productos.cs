@@ -19,6 +19,7 @@ namespace DL
         {
             this.DetallesVentas = new HashSet<DetallesVentas>();
             this.Inventario = new HashSet<Inventario>();
+            this.Compras = new HashSet<Compras>();
         }
     
         public int IdProducto { get; set; }
@@ -31,5 +32,7 @@ namespace DL
         public virtual ICollection<DetallesVentas> DetallesVentas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventario> Inventario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Compras> Compras { get; set; }
     }
 }
